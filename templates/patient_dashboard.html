@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Patient Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='patient_dashboard.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+
+let patientId="";
+
+// ---------------- PAGE LOAD ----------------
+
+window.onload = function(){
+
+patientId = "{{ patient.did }}"
+
+setInterval(checkConsent,2000)
+setInterval(checkUpdate,2000)
+
+}
+
+// ---------------- CONSENT CHECK ----------------
+
+function checkConsent(){
+
+fetch("/check-consent/" + patientId)
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.status === "pending"){
+
+document.getElementById("patientConsent").style.display = "flex"
+
+}
+
+})
+
+}
+
+function allowConsent(){
+
+fetch("/allow-consent/" + patientId)
+
+.then(()=>{
+
+document.getElementById("patientConsent").style.display="none"
+
+})
+
+}
+
+function denyConsent(){
+
+fetch("/deny-consent/" + patientId)
+
+.then(()=>{
+
+document.getElementById("patientConsent").style.display="none"
+
+})
+
+}
+
+
+// ---------------- UPDATE CHECK ----------------
+
+function checkUpdate(){
+
+fetch("/check-update/" + patientId)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status==="updated"){
+
+document.getElementById("updatePopup").style.display="flex"
+
+}
+
+})
+
+}
+
+function closeUpdate(){
+
+document.getElementById("updatePopup").style.display="none"
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<!-- ================= CONSENT POPUP ================= -->
+
+<div id="patientConsent" class="consent-popup" style="display:none;">
+
+<div class="consent-card">
+
+<h2>Doctor Access Request</h2>
+
+<p>Doctor requesting access to your EHR</p>
+
+<div class="consent-buttons">
+
+<button class="allow" onclick="allowConsent()">
+Allow
+</button>
+
+<button class="deny" onclick="denyConsent()">
+Deny
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= UPDATE POPUP ================= -->
+
+<div id="updatePopup" class="update-popup" style="display:none;">
+
+<div class="update-card">
+
+<h2>EHR Updated</h2>
+
+<p>Your EHR has been updated successfully</p>
+
+<button onclick="closeUpdate()">OK</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="dashboard">
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+<h2>Patient Panel</h2>
+
+<ul>
+
+<li>
+<a href="#">
+<i class="fa-solid fa-user"></i> Profile
+</a>
+</li>
+
+<li>
+<a href="/patient-history/{{ patient.did }}">
+<i class="fa-solid fa-file-medical"></i> Past Records
+</a>
+</li>
+
+<li>
+<a href="/patient-new">
+<i class="fa-solid fa-plus"></i> New Upload
+</a>
+</li>
+
+<li>
+<a href="/ehr-login">
+<i class="fa-solid fa-eye"></i> View EHR
+</a>
+</li>
+
+</ul>
+
+</div>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="main">
+
+<h1>Welcome {{ patient.name }}</h1>
+
+<div class="cards">
+
+<!-- Past Records -->
+
+<div class="card">
+
+<i class="fa-solid fa-file-medical"></i>
+
+<h3>Past Records</h3>
+
+<p>View your previous visits</p>
+
+<a href="/patient-history/{{ patient.did }}">
+View
+</a>
+
+</div>
+
+
+<!-- Upload -->
+
+<div class="card">
+
+<i class="fa-solid fa-upload"></i>
+
+<h3>New Upload</h3>
+
+<p>Upload new symptoms and images</p>
+
+<a href="/patient-new">
+Upload
+</a>
+
+</div>
+
+
+<!-- AI Diagnosis -->
+
+<div class="card">
+
+<i class="fa-solid fa-brain"></i>
+
+<h3>AI Diagnosis</h3>
+
+<p>View AI generated diagnosis</p>
+
+<a href="/ehr-login">
+View
+</a>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

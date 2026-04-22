@@ -1,0 +1,19 @@
+# Fabric SDK
+fabric-sdk-py>=0.8.0
+
+# gRPC
+grpcio==1.51.1
+grpcio-tools==1.51.1
+protobuf==4.21.12
+
+# Cryptography
+cryptography==41.0.0
+pyOpenSSL==23.2.0
+ecdsa==0.18.0
+
+# Utilities
+six==1.16.0
+asn1crypto==1.5.1
+pycryptodome==3.17
+base58==2.1.1
+requests==2.31.0

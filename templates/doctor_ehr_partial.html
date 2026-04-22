@@ -1,0 +1,51 @@
+<div class="ehr-section">
+
+<h3>EHR Records - {{ did }}</h3>
+
+<div class="ehr-grid">
+
+{% for visit in history %}
+
+<div class="ehr-card">
+
+<div class="ehr-header">
+
+<h4>Visit</h4>
+
+<span>{{ visit.timestamp }}</span>
+
+</div>
+
+<div class="ehr-body">
+
+<p><b>Hospital:</b> {{ visit.hospitalname }}</p>
+
+<p><b>Disease:</b> {{ visit.disease }}</p>
+
+<p><b>Medical Code:</b> {{ visit.code }}</p>
+
+<p><b>Description:</b></p>
+
+<div class="description">
+
+{{ visit.description }}
+
+</div>
+
+<p><b>Final Assessment:</b></p>
+
+<div class="assessment">
+
+{{ visit.final_assessment }}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>

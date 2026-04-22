@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Login</title>
+
+<link rel="stylesheet" 
+href="{{ url_for('static', filename='login.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-card">
+
+<div class="login-header">
+<i class="fa-solid fa-user-injured"></i>
+<h2>Patient Login</h2>
+<p>Access your Secure Electronic Health Records</p>
+</div>
+
+<form method="POST" action="/patient-login">
+
+<!-- DID -->
+
+<div class="input-group">
+<i class="fa-solid fa-id-card"></i>
+<input 
+type="text" 
+name="did" 
+placeholder="Enter Patient DID" 
+required>
+</div>
+
+<!-- AADHAR -->
+
+<div class="input-group">
+<i class="fa-solid fa-address-card"></i>
+<input 
+type="text" 
+name="aadhar" 
+placeholder="Enter Aadhar Number" 
+required>
+</div>
+
+<button type="submit">
+<i class="fa-solid fa-arrow-right"></i>
+Login
+</button>
+
+</form>
+
+<div class="login-footer">
+<p>Agentic AI Healthcare System</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

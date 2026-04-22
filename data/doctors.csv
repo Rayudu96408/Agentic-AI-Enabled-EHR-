@@ -1,0 +1,11 @@
+doctor_id,name,hospitalname,specialization
+DOC-A98K4H7L1,Dr Ravi,Apollo Hospital,Cardiology
+DOC-B72M9Q1X5,Dr Anjali,KIMS Hospital,Neurology
+DOC-C84L2P9D6,Dr Kumar,City Hospital,General Medicine
+DOC-D91H5K8T2,Dr Meena,Global Hospital,Orthopedics
+DOC-E73J8L4W9,Dr Ramesh,Sunrise Hospital,Dermatology
+DOC-F62Q7Z3N8,Dr Priya,Apollo Hospital,Pediatrics
+DOC-G49K1M8V3,Dr Suresh,KIMS Hospital,ENT
+DOC-H28P6D4X7,Dr Lakshmi,City Hospital,Gynecology
+DOC-J57L9F2B4,Dr Naveen,Global Hospital,Oncology
+DOC-K83M2R6T1,Dr Harish,Sunrise Hospital,Nephrology

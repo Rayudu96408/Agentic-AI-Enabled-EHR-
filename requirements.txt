@@ -1,0 +1,7 @@
+torch
+transformers
+sentencepiece
+pillow
+langchain
+langchain-community
+ipfshttpclient

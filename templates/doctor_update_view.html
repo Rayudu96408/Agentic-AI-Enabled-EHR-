@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Update EHR</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='doctor_update_view.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Update Patient EHR - {{ did }}</h2>
+
+{% for visit in history %}
+
+<div class="ehr-card">
+
+<form method="POST" action="/doctor-update-record">
+
+<input type="hidden" name="ehr_id" value="{{ visit.ehr_id }}">
+
+<p><b>DID:</b> {{ visit.did }}</p>
+
+<p><b>Hospital:</b> {{ visit.hospitalname }}</p>
+
+<p><b>Description:</b> {{ visit.description }}</p>
+
+<label>Disease</label>
+<input type="text" name="disease"
+value="{{ visit.disease }}">
+
+<label>Medical Code</label>
+<input type="text" name="code"
+value="{{ visit.code }}">
+
+<label>Final Assessment</label>
+<textarea name="final_assessment">
+{{ visit.final_assessment }}
+</textarea>
+
+<button type="submit">
+Update EHR
+</button>
+
+</form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Doctor Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+
+<script>
+
+let selectedPatient=""
+let actionType=""
+
+function requestConsent(patient, action){
+
+selectedPatient = patient
+actionType = action
+
+document.getElementById("consentModal").style.display="flex"
+
+}
+
+function allowConsent(){
+
+document.getElementById("consentModal").style.display="none"
+
+if(actionType==="view"){
+window.location="/doctor-view/"+selectedPatient
+}
+
+if(actionType==="update"){
+window.location="/doctor-update/"+selectedPatient
+}
+
+}
+
+function denyConsent(){
+
+document.getElementById("consentModal").style.display="none"
+
+alert("Patient denied access")
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Doctor Dashboard</h2>
+
+<div class="doctor-info">
+
+<p><b>Doctor ID:</b> {{ doctor.doctor_id }}</p>
+<p><b>Name:</b> {{ doctor.name }}</p>
+<p><b>Hospital:</b> {{ doctor.hospitalname }}</p>
+
+</div>
+
+<h3>Patients</h3>
+
+<div class="patient-grid">
+
+{% for patient in patients %}
+
+<div class="patient-box">
+
+<h4>{{ patient.patient_id }}</h4>
+
+<div class="actions">
+
+<button onclick="requestConsent('{{ patient.patient_id }}','view')">
+View
+</button>
+
+<button class="update-btn"
+onclick="requestConsent('{{ patient.patient_id }}','update')">
+Update
+</button>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- Consent Popup -->
+
+<div id="consentModal" class="modal">
+
+<div class="modal-content">
+
+<h3>Patient Consent Required</h3>
+
+<p>Allow doctor to access patient data?</p>
+
+<button onclick="allowConsent()">Allow</button>
+
+<button onclick="denyConsent()">Deny</button>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Patient History</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='patient_history.css') }}">
+
+<script>
+
+function toggleVisit(id){
+
+var all = document.querySelectorAll(".visit-details");
+
+all.forEach(function(item){
+item.style.display = "none";
+});
+
+var x = document.getElementById(id);
+
+if(x){
+x.style.display = "block";
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Patient History - {{ did }}</h2>
+
+<div class="visit-grid">
+
+{% for visit in history %}
+
+<div class="visit-box"
+onclick="toggleVisit('visit{{ loop.index }}')">
+
+<h3>Visit {{ loop.index }}</h3>
+
+<p class="date">
+{{ visit.timestamp }}
+</p>
+
+</div>
+
+<div id="visit{{ loop.index }}"
+class="visit-details"
+style="display:none">
+
+<p><b>Hospital:</b> {{ visit.hospitalname }}</p>
+
+<p><b>Disease:</b> {{ visit.disease }}</p>
+
+<p><b>Code:</b> {{ visit.code }}</p>
+
+<p><b>Description:</b> {{ visit.description }}</p>
+
+<p><b>Final Assessment:</b></p>
+
+<div class="assessment">
+{{ visit.final_assessment }}
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

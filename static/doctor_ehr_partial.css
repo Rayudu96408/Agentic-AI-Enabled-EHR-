@@ -1,0 +1,134 @@
+/* EHR Section Container */
+
+.ehr-section{
+margin-top:35px;
+background:linear-gradient(135deg,#ffffff,#f8fbff);
+padding:30px;
+border-radius:18px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+animation:fadeIn 0.4s ease;
+}
+
+.ehr-section h3{
+color:#0d47a1;
+margin-bottom:20px;
+font-size:22px;
+}
+
+/* Grid Layout */
+
+.ehr-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+gap:25px;
+}
+
+/* EHR Card */
+
+.ehr-card{
+background:white;
+border-radius:15px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.ehr-card:hover{
+transform:translateY(-6px);
+box-shadow:0 20px 35px rgba(0,0,0,0.12);
+}
+
+/* Header */
+
+.ehr-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+border-bottom:1px solid #e0e0e0;
+padding-bottom:10px;
+}
+
+.ehr-header h4{
+color:#1976d2;
+font-size:16px;
+}
+
+.ehr-header span{
+background:#1976d2;
+color:white;
+padding:5px 12px;
+border-radius:8px;
+font-size:12px;
+}
+
+/* Body */
+
+.ehr-body p{
+margin:8px 0;
+font-size:14px;
+color:#444;
+}
+
+/* Description */
+
+.description{
+background:#f8fbff;
+padding:12px;
+border-radius:10px;
+margin-top:6px;
+border-left:4px solid #42a5f5;
+}
+
+/* Assessment */
+
+.assessment{
+background:#ffffff;
+padding:14px;
+border-radius:10px;
+margin-top:6px;
+border-left:4px solid #4caf50;
+box-shadow:0 5px 12px rgba(0,0,0,0.05);
+}
+
+/* Visit Badge */
+
+.ehr-card::before{
+content:"EHR";
+position:absolute;
+top:10px;
+right:-30px;
+background:#1976d2;
+color:white;
+padding:5px 35px;
+transform:rotate(45deg);
+font-size:10px;
+}
+
+/* Animation */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.ehr-grid{
+grid-template-columns:1fr;
+}
+
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EHR Access</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='ehr_login.css') }}">
+
+<script>
+
+function toggleFields(){
+
+const role=document.getElementById("role").value
+
+const patientField=document.getElementById("patient-field")
+const doctorField=document.getElementById("doctor-field")
+
+if(role==="doctor"){
+
+patientField.style.display="none"
+doctorField.style.display="block"
+
+}else{
+
+patientField.style.display="block"
+doctorField.style.display="none"
+
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<h2>EHR Access Portal</h2>
+
+<form method="POST">
+
+<!-- ROLE SELECT -->
+
+<label>Role</label>
+
+<select name="role" id="role" onchange="toggleFields()">
+
+<option value="patient">Patient</option>
+<option value="doctor">Doctor</option>
+
+</select>
+
+<!-- PATIENT FIELDS -->
+
+<div id="patient-field">
+
+<label>Patient DID</label>
+<input type="text" name="did" placeholder="Enter Patient DID">
+
+<label>Aadhar Number</label>
+<input type="text" name="aadhar" placeholder="Enter Aadhar Number">
+
+</div>
+
+<!-- DOCTOR FIELD -->
+
+<div id="doctor-field" style="display:none;">
+
+<label>Doctor ID</label>
+<input type="text" name="doctor_id" placeholder="Enter Doctor ID">
+
+</div>
+
+<button type="submit">
+
+Access EHR
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

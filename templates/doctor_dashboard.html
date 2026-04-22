@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Doctor Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+
+let selectedPatient=""
+let actionType=""
+
+function requestConsent(patient, action){
+
+selectedPatient = patient
+actionType = action
+
+fetch("/request-consent",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+did:patient,
+action:action
+})
+})
+
+document.getElementById("consentModal").style.display="flex"
+
+checkDoctorConsent()
+
+}
+
+function checkDoctorConsent(){
+
+let timer = setInterval(()=>{
+
+fetch("/check-doctor-consent/"+selectedPatient)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status==="allowed"){
+
+clearInterval(timer)
+
+document.getElementById("consentModal").style.display="none"
+
+if(data.action==="view"){
+loadEHR(selectedPatient)
+}
+
+if(data.action==="update"){
+window.location="/doctor-update/"+selectedPatient
+}
+
+}
+
+else if(data.status==="denied"){
+
+clearInterval(timer)
+
+document.getElementById("consentModal").style.display="none"
+
+alert("Access Denied by Patient")
+
+}
+
+})
+
+},2000)
+
+}
+
+function loadEHR(patient){
+
+fetch("/doctor-ehr/"+patient)
+
+.then(res=>res.text())
+
+.then(html=>{
+
+document.getElementById("ehrContainer").innerHTML = html
+
+})
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Doctor Dashboard</h2>
+
+<div class="doctor-info">
+
+<p><b>Doctor ID:</b> {{ doctor.doctor_id }}</p>
+<p><b>Name:</b> {{ doctor.name }}</p>
+<p><b>Hospital:</b> {{ doctor.hospitalname }}</p>
+
+</div>
+
+<h3>Patients</h3>
+
+<div class="patient-grid">
+
+{% for patient in patients %}
+
+<div class="patient-box">
+
+<h4>{{ patient.did }}</h4>
+
+<div class="actions">
+
+<button onclick="requestConsent('{{ patient.did }}','view')">
+View
+</button>
+
+<button class="update-btn"
+onclick="requestConsent('{{ patient.did }}','update')">
+Update
+</button>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<div id="ehrContainer"></div>
+
+</div>
+
+<div id="consentModal" class="modal">
+
+<div class="modal-content">
+
+<h3>Waiting for Patient Consent</h3>
+
+<div class="loader"></div>
+
+</div>
+
+</div>
+
+</body>
+</html>

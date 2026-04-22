@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Patient Registration</title>
+
+<link rel="stylesheet" 
+href="{{ url_for('static', filename='form.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+
+function toggleInputs(){
+
+let mode=document.getElementById("mode").value
+
+document.getElementById("textBox").style.display="none"
+document.getElementById("imageBox").style.display="none"
+
+if(mode==="1"){
+document.getElementById("textBox").style.display="block"
+}
+
+if(mode==="2"){
+document.getElementById("textBox").style.display="block"
+document.getElementById("imageBox").style.display="block"
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>
+
+<i class="fa-solid fa-user-plus"></i>
+
+New Patient Registration
+
+</h2>
+
+<form action="/submit" method="POST" enctype="multipart/form-data">
+
+<input type="hidden" name="did" value="{{ patient.did }}">
+
+<label>Aadhar Number</label>
+<input type="text" name="aadhar" required>
+
+<label>Name</label>
+<input type="text" name="name" required>
+
+<label>Age</label>
+<input type="number" name="age" required>
+
+<label>Gender</label>
+<select name="gender" required>
+
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+
+</select>
+
+<label>Hospital Name</label>
+<input type="text" name="hospitalname" required>
+
+<label>Input Type</label>
+
+<select id="mode" name="mode" onchange="toggleInputs()" required>
+
+<option value="">Select</option>
+<option value="1">Text Only</option>
+<option value="2">Text + Image</option>
+
+</select>
+
+<div id="textBox" style="display:none">
+
+<label>Clinical Description</label>
+
+<textarea name="problem_text"></textarea>
+
+</div>
+
+<div id="imageBox" style="display:none">
+
+<label>Upload Medical Image</label>
+
+<input type="file" name="problem_image">
+
+</div>
+
+<button type="submit">
+
+<i class="fa-solid fa-brain"></i>
+
+Submit & Process
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

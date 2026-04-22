@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electronic Health Record</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ehr.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Electronic Health Record</h2>
+    <p><b>Patient ID:</b> {{ patient_id }}</p>
+    <p><b>Access Role:</b> {{ role|capitalize }}</p>
+
+    {% for visit in history %}
+    <div class="ehr-card">
+        <h3>Hospital: {{ visit.hospitalname }}</h3>
+
+        <p><b>Date:</b> {{ visit.timestamp }}</p>
+
+        <p><b>Clinical Description:</b></p>
+        <p>{{ visit.description }}</p>
+
+        <!-- NEW FIELD -->
+        <p><b>Detected Disease:</b></p>
+        <p>{{ visit.disease }}</p>
+
+        <!-- NEW FIELD -->
+        <p><b>Medical Code (ICD10):</b></p>
+        <p>{{ visit.code }}</p>
+
+        <p><b>Agentic AI Final Conclusion:</b></p>
+        <div class="ai-box">
+            {{ visit.final_assessment }}
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
